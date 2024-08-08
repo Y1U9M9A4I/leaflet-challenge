@@ -20,15 +20,18 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 function createFeatures(eqdata) {
   L.geoJSON(eqdata, {
-    pointlayer: function (feature, latlng) {
-      return L.circleMarker(latlng, {
+    pointToLayer: function (feature, latlng) {
+      let marker = L.circleMarker(latlng, {
         radius: feature.properties.mag * 5, 
         fillColor: getColor(feature.geometry.coordinates[2]),
         color: "black",
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
-      }).bindPopup("<h3>" + feature.properties.place + "</h3><hr><p>Magnitude: " + feature.properties.mag + "<br>Depth: " + feature.geometry.coordinates[2] + "</p>");
+      });
+      
+      marker.bindPopup("<h3>" + feature.properties.place + "</h3><hr><p>Magnitude: " + feature.properties.mag + "<br>Depth: " + feature.geometry.coordinates[2] + "</p>");
+      return marker;
     }
   }).addTo(Map);
 }
