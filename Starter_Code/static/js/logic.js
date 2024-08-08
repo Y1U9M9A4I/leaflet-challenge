@@ -1,9 +1,3 @@
-let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
-
-d3.json(url).then(function (data) {
-  createFeatures(data.features);
-});
-
 // map object created 
 
 let Map = L.map("map", {
@@ -42,5 +36,18 @@ function createFeatures(eqdata) {
 // color based on depth range 
 
 function getColor(depth) {
-  return depth > 90 ?
+  return depth > 90 ? "#FF0000":
+          depth > 70 ? "#FF4500":
+          depth > 50 ? "#FF8c00":
+          depth > 30 ? "#FFD700":
+          depth > 10 ? "#ADFF2F":
+                        "32CD32";
 }
+
+// fetch eq data + call createfeatures
+
+let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
+
+d3.json(url).then(function (data) {
+  createFeatures(data.features);
+});
