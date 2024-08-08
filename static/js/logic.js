@@ -51,7 +51,7 @@ let legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
   let div = L.DomUtil.create('div', 'info legend');
   let depths = [10, 30, 50, 70, 90];
-  
+  div.innerHTML = '<h4>Earthquake Depth</h4>';
   for (let i = 0; i < depths.length; i++) {
     div.innerHTML +=
       '<i style="background-color:' + getColor(depths[i] + 1) + '"></i> ' +
