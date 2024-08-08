@@ -36,14 +36,32 @@ function createFeatures(eqdata) {
   }).addTo(Map);
 }
 
+// need legend using legend control
+
+let legend = L.control({ position: 'bottomright'});
+legend.onAdd = function(map) {
+  let div = L.DomUtil.create('div', 'info legend');
+  let depths = [10, 30, 50, 70, 90];
+
+  for (let i = 0; i < depths.length; i++) {
+    div.innerHTML +=
+    '<i style= "background-color:' + getColor(depths[i] + 1) + '"></i> ' +
+    depths[i] + (depths[i + 1] ? '&ndash;' + depths[i+1] + '<br>' : '+');
+  }
+
+  return div;
+};
+
+legend.addTo(Map);
+
 // color based on depth range 
 
 function getColor(depth) {
-  return depth > 90 ? "#FF0000":
-          depth > 70 ? "#FF4500":
-          depth > 50 ? "#FF8c00":
-          depth > 30 ? "#FFD700":
-          depth > 10 ? "#ADFF2F":
+  return depth > 90 ? "#FF0000" :
+          depth > 70 ? "#FF4500" :
+          depth > 50 ? "#FF8c00" :
+          depth > 30 ? "#FFD700" :
+          depth > 10 ? "#ADFF2F" :
                         "32CD32";
 }
 
